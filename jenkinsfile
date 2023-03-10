@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage ('Approve b/4 Tomcat Deployment') {
+        stage ('Managers approval required prior Production Deployment') {
             steps {
                 echo "Taking approval from QA manager" timeout(time: 1, unit: 'DAYS') {
                     input message: 'Do you want to deploy to Production?', submitter: 'admin,manager_userid'
