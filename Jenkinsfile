@@ -1,5 +1,3 @@
-## This is a declarative pipeline for jenkins-CICD-project
-
 pipeline {
     
     agent any
