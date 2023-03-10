@@ -29,20 +29,39 @@ pipeline {
     
     stage ('Manager Approval Required.') {
       steps {
-      echo "Taking approval from DEV Manager for QA Deployment"
+      echo "Taking approval from Manager for Deployment to DEV Env."
         timeout(time: 1, unit: 'DAYS') {
         input message: 'Do you want to deploy this application?', submitter: 'admin'
         }
       }
     }
     
-    stage ('QA Deployment') {
+    stage ('Nexus Upload') {
       steps {
-        echo "deploying to QA Env "
-deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://54.234.93.243:8080')], contextPath: null, war: '**/*.war'        }
+      nexusArtifactUploader(
+      nexusVersion: 'nexus3',
+      protocol: 'http',
+      nexusUrl: '3.208.18.128:8081',
+      groupId: 'JavaWebCalculator-master',
+      version: '1.0-SNAPSHOT',
+      repository: 'maven-snapshots',
+      credentialsId: 'nexus',
+      artifacts: [
+      [artifactId: 'JavaWebCalculator-master',
+      classifier: '',
+      file: 'JavaWebCalculator-master/target/webapp-0.3.war',
+      type: 'war']
+      ])
+      }
+    }
+    
+    
+    stage ('DEV Deployment') {
+      steps {
+        echo "deploying to DEV Env "
+deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://54.237.117.71:8080')], contextPath: null, war: '**/*.war'        }
     }
 }
   
   
 }
-
