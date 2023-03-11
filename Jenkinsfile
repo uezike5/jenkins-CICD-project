@@ -7,7 +7,7 @@ pipeline {
 
   stages {
 
-    stage('Code Checkoutcfrom github Repo') {
+    stage('Code Checkout from github Repo') {
             steps {
             checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/uezike5/jenkins-CICD-project']])
             }
@@ -31,7 +31,7 @@ pipeline {
 
     stage ('Manager Approval Required.') {
       steps {
-      echo "Taking approval from DEV Manager for QA Deployment"
+      echo "Taking approval from Manager before QA Deployment"
         timeout(time: 1, unit: 'DAYS') {
         input message: 'Do you want to deploy this application?', submitter: 'admin'
         }
