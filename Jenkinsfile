@@ -41,7 +41,7 @@ pipeline {
       nexusArtifactUploader(
       nexusVersion: 'nexus3',
       protocol: 'http',
-      nexusUrl: '3.208.18.128:8081',
+      nexusUrl: '100.26.145.254:8081',
       groupId: 'JavaWebCalculator-master',
       version: '1.0-SNAPSHOT',
       repository: 'maven-snapshots',
@@ -49,7 +49,7 @@ pipeline {
       artifacts: [
       [artifactId: 'JavaWebCalculator-master',
       classifier: '',
-      file: 'JavaWebCalculator-master/target/webapp-0.3.war',
+      file: 'JavaWebCalculator-master/target/webapp-0.5.war',
       type: 'war']
       ])
       }
@@ -59,7 +59,7 @@ pipeline {
     stage ('DEV Deployment') {
       steps {
         echo "deploying to DEV Env "
-deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://54.237.117.71:8080')], contextPath: null, war: '**/*.war'        }
+deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://54.162.0.156:8080')], contextPath: null, war: '**/*.war'        }
     }
 }
   
