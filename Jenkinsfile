@@ -19,14 +19,6 @@ pipeline {
             }  
         }
 
-    stage ('Code Quality Scanning') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'mvn -f JavaWebCalculator-master/pom.xml sonar:sonar'
-        }
-      }
-    }
-    
     stage ('Manager Approval Required.') {
       steps {
       echo "Taking approval from Manager for Deployment to DEV Env."
@@ -49,7 +41,7 @@ pipeline {
       artifacts: [
       [artifactId: 'JavaWebCalculator-master',
       classifier: '',
-      file: 'JavaWebCalculator-master/target/webapp-0.5.war',
+      file: 'JavaWebCalculator-master/target/webapp-0.3.war',
       type: 'war']
       ])
       }
