@@ -29,6 +29,12 @@ pipeline {
       }
     }
 
+stage ('JaCoCo') {
+      steps {
+      jacoco()
+      }
+    }
+
     stage ('Manager Approval Required.') {
       steps {
       echo "Taking approval from Manager before QA Deployment"
